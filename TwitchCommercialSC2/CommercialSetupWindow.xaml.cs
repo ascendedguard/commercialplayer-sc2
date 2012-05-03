@@ -1,4 +1,13 @@
-﻿namespace TwitchCommercialSC2
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CommercialSetupWindow.xaml.cs" company="AscendTV">
+//   Copyright © 2012 All Rights Reserved
+// </copyright>
+// <summary>
+//   Interaction logic for CommercialSetupWindow.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace TwitchCommercialSC2
 {
     using System;
     using System.IO;
@@ -10,10 +19,13 @@
     /// </summary>
     public partial class CommercialSetupWindow
     {
+        /// <summary> The list of choices for the delay seconds. </summary>
         private readonly int[] delayChoices = new[] { 0, 2, 5, 8, 10, 15, 20, 30, 45, 60 };
 
+        /// <summary> The list of choices for the number of minutes in the replay to watch for. </summary>
         private readonly int[] replayMinuteChoices = new[] { 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60 };
 
+        /// <summary> The list of the number of commercials to play. </summary>
         private readonly int[] commercialChoices = new[] { 0, 1, 2, 3, 4, 5, 6 };
 
         /// <summary> Initializes a new instance of the <see cref="CommercialSetupWindow"/> class. </summary>
@@ -36,15 +48,18 @@
             this.txtReplayLocation.Text = RegistrySettings.ReplayLocation;
         }
 
-        private void btnFindFolder_Click(object sender, RoutedEventArgs e)
+        /// <summary> Opens the folder browser dialog when the ... button is clicked. </summary>
+        /// <param name="sender"> The sender. </param>
+        /// <param name="e"> The event arguments. </param>
+        private void FindFolderClicked(object sender, RoutedEventArgs e)
         {
             var fbd = new System.Windows.Forms.FolderBrowserDialog
                 {
                     Description =
-                        "Select the folder containing your SC2 accounts. You do not need to select your replay directory specifically."
+                        "Select the folder containing your SC2 accounts. You do not need to select your replay directory specifically.",
+                    RootFolder = Environment.SpecialFolder.MyComputer
                 };
 
-            fbd.RootFolder = Environment.SpecialFolder.MyComputer;
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var replayFolder = fbd.SelectedPath;
@@ -71,7 +86,10 @@
             }
         }
 
-        private void OKClicked(object sender, RoutedEventArgs e)
+        /// <summary> Saves the settings to the registry and closes the dialog when OK is pressed. </summary>
+        /// <param name="sender"> The sender. </param>
+        /// <param name="e"> The event arguments. </param>
+        private void OkClicked(object sender, RoutedEventArgs e)
         {
             var folder = txtReplayLocation.Text;
 

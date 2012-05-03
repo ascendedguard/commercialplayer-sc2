@@ -1,4 +1,11 @@
-﻿using System.Windows;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MainWindow.xaml.cs" company="AscendTV">
+//   Copyright © 2012 All Rights Reserved
+// </copyright>
+// <summary>
+//   Interaction logic for MainWindow.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace TwitchCommercialSC2
 {
@@ -6,6 +13,7 @@ namespace TwitchCommercialSC2
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Media;
 
     using Starcraft2.ReplayParser;
@@ -25,6 +33,7 @@ namespace TwitchCommercialSC2
             this.VerifyWhetherSetupIsComplete();
         }
 
+        /// <summary> Verifies whether setup is complete and highlights the boxes the correct colors. </summary>
         private void VerifyWhetherSetupIsComplete()
         {
             bool twitchAccess = false;
@@ -59,14 +68,18 @@ namespace TwitchCommercialSC2
 
             if (twitchAccess && commercialSetup)
             {
+                // If everything is set up correctly, we can begin watching for replays now.
                 if (this.watcher != null)
                 {
                     this.watcher.EnableRaisingEvents = false;
                     this.watcher.Dispose();
                 }
 
-                this.watcher = new FileSystemWatcher(RegistrySettings.ReplayLocation, "*.SC2Replay");
-                this.watcher.IncludeSubdirectories = true;
+                this.watcher = new FileSystemWatcher(RegistrySettings.ReplayLocation, "*.SC2Replay")
+                    {
+                        IncludeSubdirectories = true 
+                    };
+
                 this.watcher.Created += this.ReplayCreated;
                 this.watcher.EnableRaisingEvents = true;
 
@@ -78,6 +91,9 @@ namespace TwitchCommercialSC2
             }
         }
 
+        /// <summary> Opens the Authorize Twitch dialog when clicked. </summary>
+        /// <param name="sender"> The sender. </param>
+        /// <param name="e"> The event arguments. </param>
         private void AuthorizeTwitchClick(object sender, RoutedEventArgs e)
         {
             var window = new AuthorizeTwitchWindow
@@ -86,6 +102,9 @@ namespace TwitchCommercialSC2
             this.VerifyWhetherSetupIsComplete();
         }
 
+        /// <summary> Opens the commercial setup dialog when clicked. </summary>
+        /// <param name="sender"> The sender. </param>
+        /// <param name="e"> The event arguments. </param>
         private void SetupCommercialClicked(object sender, RoutedEventArgs e)
         {
             var window = new CommercialSetupWindow
@@ -94,7 +113,9 @@ namespace TwitchCommercialSC2
             this.VerifyWhetherSetupIsComplete();
         }
 
-        public void AddToLog(string text)
+        /// <summary> Adds a single line of text to the log. </summary>
+        /// <param name="text"> The text to add. </param>
+        private void AddToLog(string text)
         {
             txtLog.Dispatcher.BeginInvoke(
                 (Action)delegate
@@ -102,14 +123,18 @@ namespace TwitchCommercialSC2
                         txtLog.Text += text + Environment.NewLine;
                         txtLog.ScrollToEnd();
                     });
-
         }
 
+        /// <summary> Begins the process of playing commercials (on a different thread) when a replay is created. </summary>
+        /// <param name="sender"> The sender. </param>
+        /// <param name="e"> The event arguments. </param>
         private void ReplayCreated(object sender, FileSystemEventArgs e)
         {
             Task.Factory.StartNew(() => this.PlayCommercials(e.FullPath), CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
         }
 
+        /// <summary> Plays commercials based on the settings set by the user. </summary>
+        /// <param name="replay"> The replay to parse. </param>
         private void PlayCommercials(string replay)
         {
             // Sleep for 1 second to allow the replay to be freed from SC2 memory.
@@ -140,8 +165,10 @@ namespace TwitchCommercialSC2
                         rep.GameLength.Minutes,
                         commercials));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                // This way, even if something goes terribly wrong, like a new patch and we can't parse replays,
+                // We will still play the regular commercial timings.
                 this.AddToLog(
                     "We failed to read the replay for some reason. We'll still play " + commercials + " commercial(s).");
             }

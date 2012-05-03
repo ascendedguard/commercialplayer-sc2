@@ -1,9 +1,18 @@
-﻿using System;
-using System.Windows;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AuthorizeTwitchWindow.xaml.cs" company="AscendTV">
+//   Copyright © 2012 All Rights Reserved
+// </copyright>
+// <summary>
+//   Interaction logic for AuthorizeTwitchWindow.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace TwitchCommercialSC2
 {
+    using System;
     using System.Diagnostics;
+    using System.Windows;
+    using System.Windows.Navigation;
 
     using TwitchCommercialSC2.TwitchTV;
 
@@ -12,21 +21,49 @@ namespace TwitchCommercialSC2
     /// </summary>
     public partial class AuthorizeTwitchWindow
     {
-        /// <summary> Initializes a new instance of the <see cref="AuthorizeTwitchWindow"/> class. </summary>
+        #region Constants and Fields
+
+        /// <summary>
+        /// Reference to the TwitchTV API.
+        /// </summary>
+        private TwitchApi api;
+
+        /// <summary>
+        /// The consumer key.
+        /// </summary>
+        private string consumerKey;
+
+        /// <summary>
+        /// The consumer secret.
+        /// </summary>
+        private string consumerSecret;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref="AuthorizeTwitchWindow" /> class.
+        /// </summary>
         public AuthorizeTwitchWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
-        private void WindowLoaded(object sender, RoutedEventArgs e)
-        {
-            this.txtConsumerKey.Text = RegistrySettings.ConsumerKey;
-            this.txtConsumerSecret.Text = RegistrySettings.ConsumerSecret;
+        #endregion
 
-            this.webBrowser.Navigating += this.WebBrowserNavigating;
-        }
+        #region Methods
 
-        private void WebBrowserNavigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        /// <summary>
+        /// Finishes the authorization process when JTV gives a redirect to AscendTV.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The event arguments.
+        /// </param>
+        private void WebBrowserNavigating(object sender, NavigatingCancelEventArgs e)
         {
             if (e.Uri.Host.Equals(@"ascendtv.com", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -41,13 +78,33 @@ namespace TwitchCommercialSC2
             }
         }
 
-        private TwitchApi api;
+        /// <summary>
+        /// Creates appropriate hooks and fills in text fields when the window finishes loading.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender. 
+        /// </param>
+        /// <param name="e">
+        /// The event arguments. 
+        /// </param>
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            this.txtConsumerKey.Text = RegistrySettings.ConsumerKey;
+            this.txtConsumerSecret.Text = RegistrySettings.ConsumerSecret;
 
-        private string consumerKey;
+            this.webBrowser.Navigating += this.WebBrowserNavigating;
+        }
 
-        private string consumerSecret;
-
-        private void btnAuthorize_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Attempts to get user authorization for the API when the keys are given.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The event arguments.
+        /// </param>
+        private void AuthorizeClicked(object sender, RoutedEventArgs e)
         {
             this.consumerKey = this.txtConsumerKey.Text;
             this.consumerSecret = this.txtConsumerSecret.Text;
@@ -58,9 +115,20 @@ namespace TwitchCommercialSC2
             this.webBrowser.Navigate(url);
         }
 
-        private void btnOpenWebsite_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Opens the developer portal when the open website button is pressed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The event arguments.
+        /// </param>
+        private void OpenWebsiteClicked(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("http://www.justin.tv/developer/activate"));
         }
+
+        #endregion
     }
 }
