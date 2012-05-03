@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="NotAuthorizedException.cs" company="">
-//   
+// <copyright file="NotAuthorizedException.cs" company="AscendTV">
+//   Copyright © 2012 All Rights Reserved
 // </copyright>
 // <summary>
 //   Indicates an exception occured where the user was not authorized to take an action.
