@@ -1,21 +1,30 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="RegistrySettings.cs" company="">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="RegistrySettings.cs" company="AscendTV">
+//   Copyright © 2012 All Rights Reserved
 // </copyright>
-// -----------------------------------------------------------------------
+// <summary>
+//   Contains all registry settings stored for the application.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace TwitchCommercialSC2
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Text;
 
+    /// <summary>
+    /// Contains all registry settings stored for the application.
+    /// </summary>
     public class RegistrySettings
     {
+        /// <summary>
+        /// Base registry path where all settings are stored.
+        /// </summary>
         private const string RegistryPath = @"HKEY_CURRENT_USER\SOFTWARE\Ascend\TwitchCommercialSC2\";
 
+        /// <summary>
+        /// Gets or sets the consumer key, an API component used in OAuth.
+        /// </summary>
         public static string ConsumerKey
         {
             get
@@ -33,6 +42,9 @@ namespace TwitchCommercialSC2
             }
         }
 
+        /// <summary>
+        /// Gets or sets the consumer secret, an API component used in OAuth.
+        /// </summary>
         public static string ConsumerSecret
         {
             get
@@ -50,6 +62,9 @@ namespace TwitchCommercialSC2
             }
         }
 
+        /// <summary>
+        /// Gets or sets the access token key, a unique value retrieved after the app has authorization.
+        /// </summary>
         public static string AccessToken
         {
             get
@@ -67,6 +82,9 @@ namespace TwitchCommercialSC2
             }
         }
 
+        /// <summary>
+        /// Gets or sets the access token secret, a unique value retrieved after the app has authorization.
+        /// </summary>
         public static string AccessTokenSecret
         {
             get
@@ -84,6 +102,9 @@ namespace TwitchCommercialSC2
             }
         }
                 
+        /// <summary>
+        /// Gets or sets the folder location to look for replays in.
+        /// </summary>
         public static string ReplayLocation
         {
             get
@@ -101,6 +122,9 @@ namespace TwitchCommercialSC2
             }
         }
         
+        /// <summary>
+        /// Gets or sets the number of commercials always played.
+        /// </summary>
         public static int InitialCommercials
         {
             get
@@ -117,7 +141,10 @@ namespace TwitchCommercialSC2
                     Microsoft.Win32.RegistryValueKind.DWord);
             }
         }
-        
+
+        /// <summary>
+        /// Gets or sets the number of extra commercials played for longer replays.
+        /// </summary>
         public static int ExtraCommercials
         {
             get
@@ -135,6 +162,9 @@ namespace TwitchCommercialSC2
             }
         }
 
+        /// <summary>
+        /// Gets or sets the delay, in seconds, before the first commercial begins playing.
+        /// </summary>
         public static int SecondsDelay
         {
             get
@@ -152,6 +182,9 @@ namespace TwitchCommercialSC2
             }
         }
 
+        /// <summary>
+        /// Gets or sets the number of minutes a replay must be before it triggers extra commercials.
+        /// </summary>
         public static int ReplayExtraMinutes
         {
             get
