@@ -1,0 +1,21 @@
+﻿<Window x:Class="TwitchCommercialSC2.AuthorizeTwitchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Authorize Twitch Window" Height="544" Width="513" Loaded="WindowLoaded" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="textBlock1" Text="Sign up with a developer account on JustinTV and create a developer application." VerticalAlignment="Top" Width="444" />
+        <Button Content="Open Website" Height="23" HorizontalAlignment="Left" Margin="12,41,0,0" Name="btnOpenWebsite" VerticalAlignment="Top" Width="100" Click="btnOpenWebsite_Click" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="118,45,0,0" Name="textBlock2" Text="Note: None of the fields actually matter. Just fill in something." VerticalAlignment="Top" Width="338" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,70,0,0" Name="textBlock3" Text="Fill in the following fields from the information on the next page:" VerticalAlignment="Top" />
+        <GroupBox Header="Application Information" Height="158" HorizontalAlignment="Left" Margin="12,99,0,0" Name="groupBox1" VerticalAlignment="Top" Width="470">
+            <Grid>
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="textBlock4" Text="Consumer Key" VerticalAlignment="Top" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="6,25,0,0" Name="txtConsumerKey" VerticalAlignment="Top" Width="446" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="6,54,0,0" Name="textBlock5" Text="Consumer Secret" VerticalAlignment="Top" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="6,73,0,0" Name="txtConsumerSecret" VerticalAlignment="Top" Width="446" />
+                <Button Content="Authorize" Height="27" HorizontalAlignment="Left" Margin="371,102,0,0" Name="btnAuthorize" VerticalAlignment="Top" Width="81" Click="btnAuthorize_Click" />
+            </Grid>
+        </GroupBox>
+        <WebBrowser Height="242" HorizontalAlignment="Left" Margin="0,263,0,0" Name="webBrowser" VerticalAlignment="Top" Width="491" />
+    </Grid>
+</Window>
