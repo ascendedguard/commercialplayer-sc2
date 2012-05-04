@@ -145,11 +145,13 @@ namespace TwitchCommercialSC2
             try
             {
                 var rep = Replay.Parse(replay);
+                var minMinutes = RegistrySettings.MinimumCommercialMinutes;
 
-                if (rep.GameLength < new TimeSpan(0, 1, 0))
+                if (rep.GameLength < new TimeSpan(0, minMinutes, 0))
                 {
                     // Fluke, we shouldnt play any commercials.
-                    this.AddToLog("Game less than 1 minute detected. Not playing any commercials.");
+                    this.AddToLog(string.Format("Game less than {0} minute detected. Not playing any commercials.", minMinutes));
+                    return;
                 }
 
                 if (rep.GameLength > new TimeSpan(0, RegistrySettings.ReplayExtraMinutes, 0))

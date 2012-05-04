@@ -201,5 +201,25 @@ namespace TwitchCommercialSC2
                     Microsoft.Win32.RegistryValueKind.DWord);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the number of minutes a replay must be before it triggers extra commercials.
+        /// </summary>
+        public static int MinimumCommercialMinutes
+        {
+            get
+            {
+                return (int)Microsoft.Win32.Registry.GetValue(RegistryPath, "MinimumCommercialMinutes", 1);
+            }
+
+            set
+            {
+                Microsoft.Win32.Registry.SetValue(
+                    RegistryPath,
+                    "MinimumCommercialMinutes",
+                    value,
+                    Microsoft.Win32.RegistryValueKind.DWord);
+            }
+        }
     }
 }

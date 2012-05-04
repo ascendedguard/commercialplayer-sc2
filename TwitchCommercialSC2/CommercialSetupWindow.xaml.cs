@@ -20,13 +20,16 @@ namespace TwitchCommercialSC2
     public partial class CommercialSetupWindow
     {
         /// <summary> The list of choices for the delay seconds. </summary>
-        private readonly int[] delayChoices = new[] { 0, 2, 5, 8, 10, 15, 20, 30, 45, 60 };
+        private readonly int[] delayChoices = new[] { 0, 2, 5, 8, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180, 240, 300 };
 
         /// <summary> The list of choices for the number of minutes in the replay to watch for. </summary>
         private readonly int[] replayMinuteChoices = new[] { 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60 };
 
         /// <summary> The list of the number of commercials to play. </summary>
         private readonly int[] commercialChoices = new[] { 0, 1, 2, 3, 4, 5, 6 };
+
+        /// <summary> The list of choices for the minimum game time before a commercial is played. </summary>
+        private readonly int[] minimumTimeChoices = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
         /// <summary> Initializes a new instance of the <see cref="CommercialSetupWindow"/> class. </summary>
         public CommercialSetupWindow()
@@ -38,12 +41,14 @@ namespace TwitchCommercialSC2
             this.cbxReplayMinutes.ItemsSource = this.replayMinuteChoices;
             this.cbxInitialCommercials.ItemsSource = this.commercialChoices;
             this.cbxExtraCommercials.ItemsSource = this.commercialChoices;
+            this.cbxMinimumTime.ItemsSource = this.minimumTimeChoices;
 
             // Choose previous options as default
             this.cbxSecondsDelay.SelectedItem = RegistrySettings.SecondsDelay;
             this.cbxReplayMinutes.SelectedItem = RegistrySettings.ReplayExtraMinutes;
             this.cbxInitialCommercials.SelectedItem = RegistrySettings.InitialCommercials;
             this.cbxExtraCommercials.SelectedItem = RegistrySettings.ExtraCommercials;
+            this.cbxMinimumTime.SelectedItem = RegistrySettings.MinimumCommercialMinutes;
 
             this.txtReplayLocation.Text = RegistrySettings.ReplayLocation;
         }
@@ -109,6 +114,8 @@ namespace TwitchCommercialSC2
             RegistrySettings.InitialCommercials = (int)cbxInitialCommercials.SelectedItem;
             RegistrySettings.ExtraCommercials = (int)cbxExtraCommercials.SelectedItem;
             RegistrySettings.SecondsDelay = (int)cbxSecondsDelay.SelectedItem;
+            RegistrySettings.MinimumCommercialMinutes = (int)cbxMinimumTime.SelectedItem;
+
             this.Close();
         }
     }
