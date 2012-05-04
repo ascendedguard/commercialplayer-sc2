@@ -15,7 +15,7 @@
   Name "Twitch Commercial Runner"
   OutFile "TwitchCommercialSetup.exe"
   SetCompressor lzma
-  RequestExecutionLevel user
+  RequestExecutionLevel admin
   
   CRCCheck on
 
@@ -66,6 +66,10 @@ Section "Prerequisites" Prerequisites
 
   SetOutPath "$TEMP"
   
+  File .\vcredist_x86.exe
+  ExecWait '"$TEMP\vcredist_x86.exe" /passive'
+  Delete "$TEMP\vcredist_x86.exe"
+
   ; Check if .NET 4.0 (Full Version) is already installed
   ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full" Install
   IntOp $8 $0 & 1
