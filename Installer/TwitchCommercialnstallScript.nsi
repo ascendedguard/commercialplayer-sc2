@@ -71,14 +71,14 @@ Section "Prerequisites" Prerequisites
   Delete "$TEMP\vcredist_x86.exe"
 
   ; Check if .NET 4.0 (Full Version) is already installed
-  ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full" Install
+  ReadRegDWORD $0 HKLM "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Client" Install
   IntOp $8 $0 & 1
   
   IntCmp $8 1 InstallDone
   
-  File .\dotNetFx40_Full_setup.exe
-  ExecWait '"$TEMP\dotNetFx40_Full_setup.exe" /passive /showfinalerror /norestart' $0
-  Delete "$TEMP\dotNetFx40_Full_setup.exe"
+  File .\dotNetFx40_Client_setup.exe
+  ExecWait '"$TEMP\dotNetFx40_Client_setup.exe" /passive /showfinalerror /norestart' $0
+  Delete "$TEMP\dotNetFx40_Client_setup.exe"
   
   IntCmp $0 1614 RequireReboot
   IntCmp $0 1641 RequireReboot
@@ -111,8 +111,7 @@ SectionIn 1 RO
 
   SetOutPath "$INSTDIR"
   
-  File "..\TwitchCommercialSC2\bin\Release\Castle.Core.dll"
-  File "..\TwitchCommercialSC2\bin\Release\DevDefined.OAuth.dll"
+  File "..\TwitchCommercialSC2\bin\Release\Newtonsoft.Json.dll"
   File "..\TwitchCommercialSC2\bin\Release\MpqLib.dll"
   File "..\TwitchCommercialSC2\bin\Release\Starcraft2.ReplayParser.dll"
   File "..\TwitchCommercialSC2\bin\Release\TwitchCommercialSC2.exe"
