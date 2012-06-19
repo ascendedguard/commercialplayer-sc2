@@ -11,8 +11,7 @@
     <RootNamespace>TwitchCommercialSC2</RootNamespace>
     <AssemblyName>TwitchCommercialSC2</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -36,14 +35,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>IconBlue.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevDefined.OAuth">
-      <HintPath>References\DevDefined.OAuth.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>References\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Starcraft2.ReplayParser">
       <HintPath>References\Starcraft2.ReplayParser.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -62,17 +65,27 @@
     <Compile Include="AuthorizeTwitchWindow.xaml.cs">
       <DependentUpon>AuthorizeTwitchWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CommercialSetupWindow.xaml.cs">
-      <DependentUpon>CommercialSetupWindow.xaml</DependentUpon>
+    <Compile Include="CommercialTimerOverlay.xaml.cs">
+      <DependentUpon>CommercialTimerOverlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="RegistrySettings.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsFile.cs" />
     <Compile Include="TwitchTV\NotAuthorizedException.cs" />
-    <Compile Include="TwitchTV\TwitchApi.cs" />
+    <Compile Include="TwitchTV\TwitchApiV2.cs" />
+    <Compile Include="TwitchTV\User.cs" />
     <Page Include="AuthorizeTwitchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CommercialSetupWindow.xaml">
+    <Page Include="CommercialTimerOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -88,6 +101,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,6 +112,36 @@
     </Compile>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
+    <Resource Include="Fonts\DroidSans-Bold.ttf" />
+    <Resource Include="Fonts\DroidSans.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Fonts\Google Android License.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_cog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_circle_question_mark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\IconBlue.png" />
+    <Resource Include="Images\IconRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="IconBlue.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconBlue.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconRed.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

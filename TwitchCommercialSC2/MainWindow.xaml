@@ -1,37 +1,112 @@
 ﻿<Window x:Class="TwitchCommercialSC2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Twitch TV Commercial Runner" Height="350" Width="525" ResizeMode="CanMinimize">
+        Title="Twitch SC2 Commercial Runner" Height="326" Width="734" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <ControlTemplate TargetType="{x:Type Button}" x:Key="ContentButton">
+            <ContentPresenter />
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value=".8" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Opacity" Value=".6" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45" />
-            <RowDefinition Height="45" />
+            <RowDefinition Height="40" />
+            <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid Background="#EEEEEE">
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
                 <ColumnDefinition />
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="60"/>
             </Grid.ColumnDefinitions>
-            <Rectangle x:Name="rectAuthorizeColor" Fill="DarkRed" />
-            <TextBlock x:Name="txtAuthorizeStatus" Text="Incomplete" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button Grid.Column="1" Content="Authorize Twitch" HorizontalAlignment="Right" Margin="0,11,12,11" Name="btnAuthorizeTwitch" Width="119" Click="AuthorizeTwitchClick" />
-        </Grid>
-            
-        <Grid Grid.Row="1" Background="#DDDDDD">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Rectangle x:Name="rectSetupCommercials" Fill="DarkRed" />
-            <TextBlock x:Name="txtSetupCommercials" Text="Incomplete" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button Content="Setup Commercials" Grid.Column="1" HorizontalAlignment="Right" Margin="0,11,12,11" Name="button1" Width="119" Click="SetupCommercialClicked" />
-        </Grid>
-        <GroupBox Grid.Row="2" Header="Log" Height="221" HorizontalAlignment="Left" VerticalAlignment="Top" Width="503">
-            <Grid>
-                <TextBox x:Name="txtLog" AcceptsReturn="True" IsReadOnly="True" IsReadOnlyCaretVisible="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="186" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="479" />
+
+            <Grid Grid.Column="0">
+                <TextBlock Text="Twitch SC2 Commercial Runner" Margin="7,0,0,0" VerticalAlignment="Center" FontSize="18" FontFamily="./Fonts/#Droid Sans Bold" TextOptions.TextHintingMode="Animated" />
             </Grid>
-        </GroupBox>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                
+                <TextBlock x:Name="txtUserName" FontFamily="./Fonts/#Droid Sans Bold" TextOptions.TextHintingMode="Fixed" FontSize="13" Text="Not Logged In" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Button Grid.Row="1" Template="{StaticResource ContentButton}" Click="LogInButtonClicked">
+                    <TextBlock x:Name="txtLoginButton" FontFamily="./Fonts/#Droid Sans" TextOptions.TextHintingMode="Fixed" Text="LOG IN" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Button>
+                
+            </Grid>
+            
+            <Grid Grid.Column="2" Background="#444444">
+                <Image x:Name="imgProfile" Width="70" HorizontalAlignment="Right" RenderOptions.BitmapScalingMode="HighQuality" />
+            </Grid>
+
+            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button ToolTip="Open Wiki" Template="{StaticResource ContentButton}" Width="18" Height="18" Click="OpenWikiClicked">
+                    <Image Source="./Images/glyphicons_circle_question_mark.png" />
+                </Button>
+
+                <Button Margin="5,0,0,0" ToolTip="Settings" Template="{StaticResource ContentButton}" Width="18" Height="18" Click="SetupCommercialClicked">
+                    <Image Source="./Images/glyphicons_cog.png" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <StackPanel HorizontalAlignment="Left" Margin="10,10,0,0">
+                <TextBlock Text="Actions"  HorizontalAlignment="Left" VerticalAlignment="Top"  FontSize="20" FontFamily="./Fonts/#Droid Sans Bold" TextOptions.TextHintingMode="Animated" />
+                <Separator Margin="0,5,0,0" />
+                <Button Margin="0,5,0,5" Template="{StaticResource ContentButton}" Click="PlayCommercialClicked">
+                    <TextBlock Text="Play a commercial"  HorizontalAlignment="Left" VerticalAlignment="Top"  FontSize="15" FontFamily="./Fonts/#Droid Sans Bold" />
+                </Button>
+                <Button Margin="0,5,0,5" Template="{StaticResource ContentButton}" Click="PlayCommercialDelayClicked">
+                    <TextBlock Text="Play a commercial with delay"  HorizontalAlignment="Left" VerticalAlignment="Top"  FontSize="15" FontFamily="./Fonts/#Droid Sans Bold" />
+                </Button>
+                <Button Margin="0,5,0,5" Template="{StaticResource ContentButton}" Click="PauseReplayMonitor">
+                    <TextBlock x:Name="txtPauseReplayMonitorButton" Text="Pause Replay Monitor"  HorizontalAlignment="Left" VerticalAlignment="Top"  FontSize="15" FontFamily="./Fonts/#Droid Sans Bold" />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <StackPanel HorizontalAlignment="Left" Margin="10,10,0,0">
+                <TextBlock Text="Statistics"  HorizontalAlignment="Left" VerticalAlignment="Top"  FontSize="20" FontFamily="./Fonts/#Droid Sans Bold" TextOptions.TextHintingMode="Animated" />
+                <Separator Margin="0,5,0,0" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Margin="0,5,0,0" Text="Total Commercials Played: "  FontSize="15" FontFamily="./Fonts/#Droid Sans" />
+                    <TextBlock Grid.Row="1" Margin="0,5,0,0" Text="Time Since Last Commercial: "  FontSize="15" FontFamily="./Fonts/#Droid Sans" />
+                    <TextBlock Grid.Row="2" Margin="0,5,0,0" Text="Average Commercials Per Hour: "  FontSize="15" FontFamily="./Fonts/#Droid Sans" />
+
+                    <TextBlock x:Name="txtTotalCommercialsPlayed" Grid.Row="0" Margin="0,5,0,0" Grid.Column="1" Text="0" FontSize="15" FontFamily="./Fonts/#Droid Sans" />
+                    <TextBlock x:Name="txtTimeSinceLastCommercial" Grid.Row="1" Margin="0,5,0,0" Grid.Column="1" Text="0" FontSize="15" FontFamily="./Fonts/#Droid Sans" />
+                    <TextBlock x:Name="txtAverageCommercialsPerHour" Grid.Row="2" Margin="0,5,0,0" Grid.Column="1" Text="0" FontSize="15" FontFamily="./Fonts/#Droid Sans" />
+                </Grid>                
+            </StackPanel>
+        </Grid>
+
+        <TextBlock x:Name="txtSettingsDescription" TextWrapping="Wrap" Grid.Row="1" Width="400" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Settings Description Gets Written Here" FontSize="15" FontFamily="./Fonts/#Droid Sans"/>
+
+        <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Text="Made By Ascend - http://ascendtv.com - @AscendSC2" FontSize="14" FontFamily="./Fonts/#Droid Sans"/>
+        <TextBlock x:Name="txtVersion" Margin="0,0,0,20" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Text="Version" FontSize="14" FontFamily="./Fonts/#Droid Sans"/>
+        <Grid x:Name="settingsOverlaySection" Grid.Row="1" Grid.RowSpan="2" />
     </Grid>
 </Window>
