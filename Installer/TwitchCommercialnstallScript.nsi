@@ -77,7 +77,7 @@ Section "Prerequisites" Prerequisites
   IntCmp $8 1 InstallDone
   
   File .\dotNetFx40_Full_setup.exe
-  ExecWait '"$TEMP\dotNetFx40_Full_setup.exe" /showfinalerror /norestart' $0
+  ExecWait '"$TEMP\dotNetFx40_Full_setup.exe" /passive /showfinalerror /norestart' $0
   Delete "$TEMP\dotNetFx40_Full_setup.exe"
   
   IntCmp $0 1614 RequireReboot
