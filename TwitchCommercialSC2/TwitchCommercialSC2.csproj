@@ -81,6 +81,7 @@
     <Compile Include="TwitchTV\NotAuthorizedException.cs" />
     <Compile Include="TwitchTV\TwitchApiV2.cs" />
     <Compile Include="TwitchTV\User.cs" />
+    <Compile Include="Updates\UpdateFile.cs" />
     <Page Include="AuthorizeTwitchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +143,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\IconRed.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\glyphicons_download.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

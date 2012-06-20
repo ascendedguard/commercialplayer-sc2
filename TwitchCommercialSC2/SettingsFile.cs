@@ -31,6 +31,8 @@ namespace TwitchCommercialSC2
 
         public string ReplayDirectory { get; set; }
 
+        public bool ShowOverlay { get; set; }
+
         public static string SettingsPath =
             Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -60,6 +62,7 @@ namespace TwitchCommercialSC2
             writer.WriteElementString("GameMinutesPerExtra", this.GameMinutesPerExtra.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("MinimumGameMinutes", this.MinimumGameMinutes.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString("ReplayDirectory", this.ReplayDirectory);
+            writer.WriteElementString("ShowOverlay", this.ShowOverlay.ToString(CultureInfo.InvariantCulture));
 
             writer.WriteEndElement();
             writer.WriteEndDocument();
@@ -69,14 +72,16 @@ namespace TwitchCommercialSC2
 
         public void Load()
         {
+            // Default settings.
+            this.Delay = 15;
+            this.InitialCommercials = 1;
+            this.GameMinutesPerExtra = 20;
+            this.MinimumGameMinutes = 3;
+            this.ReplayDirectory = DefaultReplayDirectory;
+            this.ShowOverlay = true;
+
             if (File.Exists(SettingsPath) == false)
             {
-                // Default settings.
-                this.Delay = 15;
-                this.InitialCommercials = 1;
-                this.GameMinutesPerExtra = 20;
-                this.MinimumGameMinutes = 3;
-                this.ReplayDirectory = DefaultReplayDirectory;
                 return;
             }
 
@@ -107,6 +112,10 @@ namespace TwitchCommercialSC2
                             case "ReplayDirectory":
                                 reader.Read();
                                 this.ReplayDirectory = reader.Value;
+                                break;
+                            case "ShowOverlay":
+                                reader.Read();
+                                this.ShowOverlay = bool.Parse(reader.Value);
                                 break;
                         }
                     }

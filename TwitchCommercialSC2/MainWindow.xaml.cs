@@ -13,6 +13,7 @@ namespace TwitchCommercialSC2
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
+    using System.Net;
     using System.Reflection;
     using System.Text;
     using System.Threading;
@@ -23,6 +24,7 @@ namespace TwitchCommercialSC2
     using Starcraft2.ReplayParser;
 
     using TwitchCommercialSC2.TwitchTV;
+    using TwitchCommercialSC2.Updates;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -78,9 +80,23 @@ namespace TwitchCommercialSC2
 
             // Show version number
             var version = Assembly.GetExecutingAssembly().GetName().Version;
-            this.txtVersion.Text = string.Format("Version {0}.{1}.{2}", version.Major, version.MajorRevision, version.Minor);
+            this.txtVersion.Text = string.Format(
+                "Version {0}.{1}.{2}", version.Major, version.MajorRevision, version.Minor);
 
             this.VerifyWhetherSetupIsComplete();
+
+            Task.Factory.StartNew(this.CheckForUpdates);
+        }
+
+        private UpdateFile updates;
+
+        private void CheckForUpdates()
+        {
+            this.updates = UpdateFile.FindUpdates();
+            if (this.updates.IsNewerVersion)
+            {
+                this.Dispatcher.BeginInvoke((Action)delegate { btnUpdate.Visibility = Visibility.Visible; });
+            }
         }
 
         private void UpdateSettingsDescription()
@@ -386,6 +402,7 @@ namespace TwitchCommercialSC2
                 (Action)delegate
                     {
                         var overlay = new CommercialTimerOverlay(delay, commercialTime);
+                        overlay.Owner = this;
                         overlay.Show();
                     });
 
@@ -445,7 +462,7 @@ namespace TwitchCommercialSC2
 
         private void ShowOverlay(int delay, int commercialSeconds)
         {
-            var overlay = new CommercialTimerOverlay(delay, commercialSeconds);
+            var overlay = new CommercialTimerOverlay(delay, commercialSeconds) { Owner = this };
             overlay.Show();
         }
 
@@ -493,6 +510,36 @@ namespace TwitchCommercialSC2
             Process.Start(wikiPage);
         }
 
-        
+        private bool updating = false;
+
+        private void UpdateClicked(object sender, RoutedEventArgs e)
+        {
+            if (this.updating)
+            {
+                return;
+            }
+
+
+            this.updating = true;
+            Task.Factory.StartNew(this.BeginUpdate);
+        }
+
+        private void BeginUpdate()
+        {
+            var updateDownloadLocation = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Twitch Commercial Runner",
+                "Updates",
+                "TwitchCommercialSetup.exe");
+
+            Directory.CreateDirectory(Path.GetDirectoryName(updateDownloadLocation));
+
+            var client = new WebClient();
+            client.DownloadFile(this.updates.DownloadLocation, updateDownloadLocation);
+            client.Dispose();
+
+            Process.Start(updateDownloadLocation);
+            this.Dispatcher.BeginInvoke((Action)(() => System.Windows.Application.Current.Shutdown()));
+        }
     }
 }

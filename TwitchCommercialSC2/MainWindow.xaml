@@ -27,7 +27,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -52,7 +52,11 @@
             </Grid>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button ToolTip="Open Wiki" Template="{StaticResource ContentButton}" Width="18" Height="18" Click="OpenWikiClicked">
+                <Button Visibility="Collapsed" x:Name="btnUpdate" ToolTip="Update Available. Click to begin." Template="{StaticResource ContentButton}" Width="18" Height="18" Click="UpdateClicked">
+                    <Image Source="./Images/glyphicons_download.png" />
+                </Button>
+
+                <Button Margin="5,0,0,0" ToolTip="Open Wiki" Template="{StaticResource ContentButton}" Width="18" Height="18" Click="OpenWikiClicked">
                     <Image Source="./Images/glyphicons_circle_question_mark.png" />
                 </Button>
 

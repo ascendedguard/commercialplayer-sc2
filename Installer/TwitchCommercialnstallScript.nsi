@@ -33,9 +33,9 @@
   VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "Will 'Ascend' Eddins"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright © 2012"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "Installation package for Twitch Commercial Runner"
-  VIProductVersion 0.6.0.0
+  VIProductVersion 1.0.0.0
   
-  BrandingText "Twitch Commercial Runner v0.6 Installation"
+  BrandingText "Twitch Commercial Runner v1.0.0 Installation"
   
 ;--------------------------------
 ;Interface Configuration
@@ -167,7 +167,7 @@ Section "Uninstall"
 
   RMDir /r "$LOCALAPPDATA\Twitch Commercial Runner\Application\"
   
-  RMDir "$LOCALAPPDATA\Twitch Commercial Runner\"
+  RMDir /r "$LOCALAPPDATA\Twitch Commercial Runner\"
   
   DeleteRegKey HKCU "Software\Ascend\TwitchCommercialSC2"
   DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\TwitchCommercialSC2"
