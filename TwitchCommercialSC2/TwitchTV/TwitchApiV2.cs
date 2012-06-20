@@ -72,8 +72,8 @@ namespace TwitchCommercialSC2.TwitchTV
         /// <returns> Returns the string to direct the user to. </returns>
         public string GetAuthorizationUrl()
         {
-            return "https://api.twitch.tv/kraken/oauth2/authorize?redirect_uri=http://ascendtv.com&client_id="
-                         + ApplicationKey + "&response_type=token&scope=channel_commercial";
+            return RootApiUrl + "oauth2/authorize?redirect_uri=http://ascendtv.com&client_id="
+                         + ApplicationKey + "&response_type=token&scope=channel_commercial+something";
         }
 
         private string AttachOAuthToken(string s)

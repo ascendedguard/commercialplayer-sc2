@@ -37,35 +37,12 @@ namespace TwitchCommercialSC2
         public AuthorizeTwitchWindow()
         {
             this.InitializeComponent();
+
         }
 
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Finishes the authorization process when JTV gives a redirect to AscendTV.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The event arguments.
-        /// </param>
-        private void WebBrowserNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            if (e.Uri.Host.Equals(@"ascendtv.com", StringComparison.InvariantCultureIgnoreCase))
-            {
-                var fragment = e.Uri.Fragment;
-
-                var splitterIndex = fragment.IndexOf('&');
-                var accessToken = fragment.Substring(14, splitterIndex - 14);
-
-                RegistrySettings.AccessToken = accessToken;
-
-                this.DialogResult = true;
-            }
-        }
 
         /// <summary>
         /// Creates appropriate hooks and fills in text fields when the window finishes loading.
@@ -78,12 +55,36 @@ namespace TwitchCommercialSC2
         /// </param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            this.webBrowser.Navigating += this.WebBrowserNavigating;
+            // We have to log out the user, because the cookies on the embedded browser fuck shit up.
+            this.webBrowser.Navigate("http://www.twitch.tv/user/logout");
 
-            this.api = new TwitchApiV2();
-            var url = this.api.GetAuthorizationUrl();
+            this.webBrowser.Navigated += this.webBrowser_Navigated;
+        }
 
-            this.webBrowser.Navigate(url);
+        void webBrowser_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Uri == new Uri("http://www.twitch.tv/"))
+            {
+                // Once we're logged out, we can redirect to the authorization URL.
+                this.api = new TwitchApiV2();
+                var url = this.api.GetAuthorizationUrl();
+                this.webBrowser.Navigate(url);
+                return;
+            }
+
+            var host = e.Uri.Host.ToLower();
+
+            if (host.Contains(@"ascendtv.com"))
+            {
+                var fragment = e.Uri.Fragment;
+
+                var splitterIndex = fragment.IndexOf('&');
+
+                var accessToken = fragment.Substring(14, splitterIndex - 14);
+
+                RegistrySettings.AccessToken = accessToken;
+                this.DialogResult = true;
+            }
         }
 
         #endregion
