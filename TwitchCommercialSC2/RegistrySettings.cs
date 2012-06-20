@@ -9,9 +9,6 @@
 
 namespace TwitchCommercialSC2
 {
-    using System;
-    using System.IO;
-
     /// <summary>
     /// Contains all registry settings stored for the application.
     /// </summary>
