@@ -398,14 +398,16 @@ namespace TwitchCommercialSC2
 
             var commercialTime = commercials * 30;
 
-            this.Dispatcher.BeginInvoke(
-                (Action)delegate
-                    {
-                        var overlay = new CommercialTimerOverlay(delay, commercialTime);
-                        overlay.Owner = this;
-                        overlay.Show();
-                    });
-
+            if (this.settings.ShowOverlay)
+            {
+                this.Dispatcher.BeginInvoke(
+                    (Action)delegate
+                        {
+                            var overlay = new CommercialTimerOverlay(delay, commercialTime);
+                            overlay.Owner = this;
+                            overlay.Show();
+                        });
+            }
             // Sleep the thread for the delay period, then starts playing commercials.
             Thread.Sleep(delay * 1000);
 
@@ -457,7 +459,11 @@ namespace TwitchCommercialSC2
         private void PlayACommercial()
         {
             this.twitchApi.PlayCommercial();
-            this.ShowOverlay(0, 30);
+
+            if (this.settings.ShowOverlay)
+            {
+                this.ShowOverlay(0, 30);                
+            }
         }
 
         private void ShowOverlay(int delay, int commercialSeconds)
@@ -500,7 +506,10 @@ namespace TwitchCommercialSC2
                 TaskCreationOptions.None,
                 TaskScheduler.Default);
 
-            this.ShowOverlay(delay, 30);
+            if (this.settings.ShowOverlay)
+            {
+                this.ShowOverlay(delay, 30);                
+            }
         }
 
         private void OpenWikiClicked(object sender, RoutedEventArgs e)
