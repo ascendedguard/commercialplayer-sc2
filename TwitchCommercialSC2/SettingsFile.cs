@@ -111,7 +111,7 @@ namespace TwitchCommercialSC2
                                 break;
                             case "ReplayDirectory":
                                 reader.Read();
-                                this.ReplayDirectory = reader.Value;
+                                this.ReplayDirectory = reader.Value.Trim();
                                 break;
                             case "ShowOverlay":
                                 reader.Read();
