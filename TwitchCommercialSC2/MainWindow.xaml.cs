@@ -81,7 +81,7 @@ namespace TwitchCommercialSC2
             // Show version number
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             this.txtVersion.Text = string.Format(
-                "Version {0}.{1}.{2}", version.Major, version.MajorRevision, version.Minor);
+                "Version {0}.{1}.{2}", version.Major, version.MajorRevision, version.Build);
 
             this.VerifyWhetherSetupIsComplete();
 
