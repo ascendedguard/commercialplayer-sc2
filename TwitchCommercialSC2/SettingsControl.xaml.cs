@@ -36,6 +36,10 @@ namespace TwitchCommercialSC2
 
         private int minimumGameMinuteCount;
 
+        private string replayDirectory;
+
+        private bool showOverlay;
+
         /// <summary> Initializes a new instance of the <see cref="SettingsControl"/> class. </summary>
         public SettingsControl()
         {
@@ -48,6 +52,8 @@ namespace TwitchCommercialSC2
             this.initialCommercialCount = settings.InitialCommercials;
             this.gameMinutesPerExtraCount = settings.GameMinutesPerExtra;
             this.minimumGameMinuteCount = settings.MinimumGameMinutes;
+            this.replayDirectory = settings.ReplayDirectory;
+            this.showOverlay = settings.ShowOverlay;
 
             this.UpdateCommercialValueText();
             this.UpdateDelayValueText();
@@ -126,7 +132,9 @@ namespace TwitchCommercialSC2
                     MinimumGameMinutes = this.minimumGameMinuteCount,
                     InitialCommercials = this.initialCommercialCount,
                     GameMinutesPerExtra = this.gameMinutesPerExtraCount,
-                    Delay = this.selectedDelay
+                    Delay = this.selectedDelay,
+                    ReplayDirectory = this.replayDirectory,
+                    ShowOverlay = this.showOverlay
                 };
 
             file.Save();
