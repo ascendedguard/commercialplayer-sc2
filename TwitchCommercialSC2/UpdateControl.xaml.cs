@@ -9,15 +9,14 @@
 
 namespace TwitchCommercialSC2
 {
+    using System;
     using System.ComponentModel;
     using System.Diagnostics;
     using System.IO;
     using System.Net;
+    using System.Windows;
 
     using TwitchCommercialSC2.Updates;
-
-    using System;
-    using System.Windows;
 
     /// <summary>
     /// Interaction logic for UpdateControl.xaml
@@ -25,14 +24,17 @@ namespace TwitchCommercialSC2
     public partial class UpdateControl
     {
         /// <summary>
+        /// Contains information about updates.
+        /// </summary>
+        private UpdateFile updates;
+
+        /// <summary>
         /// Prevents a default instance of the <see cref="UpdateControl"/> class from being created. 
         /// </summary>
         private UpdateControl()
         {
             this.InitializeComponent();
         }
-
-        private UpdateFile updates;
 
         public UpdateControl(UpdateFile update) : this()
         {
@@ -66,7 +68,7 @@ namespace TwitchCommercialSC2
 
             try
             {
-                Process.Start(this.updateDownloadLocation); // TODO: Add a parameter to startup automatically.
+                Process.Start(this.updateDownloadLocation);
                 this.Dispatcher.BeginInvoke((Action)(() => Application.Current.Shutdown()));
             }
             catch (Win32Exception ex)

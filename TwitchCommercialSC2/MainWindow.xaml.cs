@@ -289,9 +289,7 @@ namespace TwitchCommercialSC2
             this.ContentGrid.Children.Clear();
             this.ContentGrid.Children.Add(c);
 
-            c.BeginUpdate();
-            
-            //Task.Factory.StartNew(this.BeginUpdate);
+            c.BeginUpdate();            
         }
     }
 }

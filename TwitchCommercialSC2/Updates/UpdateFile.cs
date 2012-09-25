@@ -23,7 +23,7 @@
 
             var client = new WebClient();
 
-            using (var reader = XmlReader.Create("http://ascendtv.com/commercial-sc2/updates.xml"))
+            using (var reader = XmlReader.Create("http://willeddins.com/apps/commercial-sc2/updates.xml"))
             {
                 while (reader.Read())
                 {
