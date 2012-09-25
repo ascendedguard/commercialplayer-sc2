@@ -66,19 +66,28 @@ namespace TwitchCommercialSC2.TwitchTV
         /// <summary>
         /// Application Client ID used when authenticating the user.
         /// </summary>
-        private const string ApplicationKey = "cjbqohk43qu345baa49ga16lz";
+        private const string ApplicationKey = "91yi2rh9kxoaho21v5dex5v4c";
 
         /// <summary> Gets the authorization URL for OAuth2 authorization. </summary>
         /// <returns> Returns the string to direct the user to. </returns>
-        public string GetAuthorizationUrl()
+        public static string GetAuthorizationUrl()
         {
-            return RootApiUrl + "oauth2/authorize?redirect_uri=http://ascendtv.com&client_id="
-                         + ApplicationKey + "&response_type=token&scope=channel_commercial+something";
+            var url = string.Format(
+                "{0}oauth2/authorize?redirect_uri=http://willeddins.com/twitch-api-login&response_type=token&client_id={1}&scope=channel_commercial",
+                RootApiUrl,
+                ApplicationKey);
+
+            return url;
         }
 
         private string AttachOAuthToken(string s)
         {
-            return s + "?oauth_token=" + RegistrySettings.AccessToken;
+            return string.Format("{0}?oauth_token={1}", s, RegistrySettings.AccessToken);
+        }
+
+        private string AttachOAuthToken(string s, string token)
+        {
+            return string.Format("{0}?oauth_token={1}", s, token);
         }
 
         private const string RootApiUrl = "https://api.twitch.tv/kraken/";
@@ -89,7 +98,12 @@ namespace TwitchCommercialSC2.TwitchTV
 
         public bool HasUserAuthorized()
         {
-            var queryUrl = this.AttachOAuthToken(RootApiUrl);
+            return this.HasUserAuthorized(RegistrySettings.AccessToken);
+        }
+
+        public bool HasUserAuthorized(string token)
+        {
+            var queryUrl = this.AttachOAuthToken(RootApiUrl, token);
 
             WebRequest request = WebRequest.Create(queryUrl);
 
@@ -116,9 +130,9 @@ namespace TwitchCommercialSC2.TwitchTV
             {
                 return false;
             }
-            
+
             var scopes = o.SelectToken("token").SelectToken("authorization").SelectToken("scopes");
-            
+
             bool hasCommercialPermission = false;
 
             foreach (var s in scopes)
@@ -133,7 +147,7 @@ namespace TwitchCommercialSC2.TwitchTV
             }
 
             var links = o.SelectToken("_links");
-            
+
             this.channelUrl = (string)links.SelectToken("channels");
             this.userUrl = (string)links.SelectToken("users");
 

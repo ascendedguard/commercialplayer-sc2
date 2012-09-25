@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="TwitchCommercialSC2.ReplayMonitorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="260" d:DesignWidth="270">
+    <Grid x:Name="gridMain">
+        <Grid x:Name="gridMonitor">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Actions" Margin="5" Grid.Row="0">
+                    <StackPanel>
+                        <Button Style="{StaticResource ButtonStyle}" Click="PlayCommercialClicked">Commercial</Button>
+                        <Button Style="{StaticResource ButtonStyle}" Click="PlayCommercialDelayClicked">Commercial w/ Delay</Button>
+                        <Button x:Name="txtPauseReplayMonitorButton" Style="{StaticResource ButtonStyle}" Click="PauseReplayMonitor">Pause Replay Monitor</Button>
+                        <Button x:Name="txtSettings" Style="{StaticResource ButtonStyle}" Click="OpenSettingsClicked">Settings</Button>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Statistics" Margin="5" Grid.Row="1">
+                    <Grid Height="70" VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                    
+                        <TextBlock Style="{StaticResource TextStyle}" Grid.Row="0" Text="Total Commercials Played: " />
+                        <TextBlock Style="{StaticResource TextStyle}" Grid.Row="1" Text="Time Since Last Commercial: " />
+                        <TextBlock Style="{StaticResource TextStyle}" Grid.Row="2" Text="Average Commercials Per Hour: " />
+
+                        <TextBlock Style="{StaticResource TextStyle}" x:Name="txtTotalCommercialsPlayed" Grid.Row="0" Grid.Column="1" Text="0" />
+                        <TextBlock Style="{StaticResource TextStyle}" x:Name="txtTimeSinceLastCommercial" Grid.Row="1" Grid.Column="1" Text="0" />
+                        <TextBlock Style="{StaticResource TextStyle}" x:Name="txtAverageCommercialsPerHour" Grid.Row="2" Grid.Column="1" Text="0" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

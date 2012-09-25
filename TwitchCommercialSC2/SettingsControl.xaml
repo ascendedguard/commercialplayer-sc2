@@ -4,8 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="224" d:DesignWidth="586" Background="White">
-    <Grid>
+             d:DesignHeight="241" d:DesignWidth="294">
+    <Grid>        
+        <GroupBox Header="Settings" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Height="200">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource TextStyle}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="txtDelayDescription" Text="Slider Description"/>
+                    <Slider Margin="0,5,0,0" Minimum="0" Maximum="17" Width="250" TickPlacement="BottomRight" IsSnapToTickEnabled="True" SmallChange="1" LargeChange="1" ValueChanged="DelaySliderValueChanged" />
+
+                    <TextBlock Style="{StaticResource TextStyle}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="txtCommercialDescription" Text="Slider Description"/>
+                    <Slider Margin="0,5,0,0" Minimum="0" Maximum="8" Width="250" TickPlacement="BottomRight" IsSnapToTickEnabled="True" SmallChange="1" LargeChange="1" ValueChanged="CommercialValueChanged" />
+
+                    <TextBlock Style="{StaticResource TextStyle}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="txtMinimumGameTime" Text="Slider Description"/>
+                    <Slider Margin="0,5,0,0" Minimum="0" Maximum="9" Width="250" TickPlacement="BottomRight" IsSnapToTickEnabled="True" SmallChange="1" LargeChange="1" ValueChanged="MinimumGameTimeValueChanged" />
+                    
+                    <CheckBox x:Name="cbxShowOverlay" Content="Show Overlay" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <Button Style="{StaticResource LoginButton}" Content="Cancel" Height="23" Width="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="CancelClicked" />
+                <Button Style="{StaticResource LoginButton}" Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,0,60,0" VerticalAlignment="Bottom" Width="60" Click="SaveSettingsClicked" />
+
+                <Button Style="{StaticResource LoginButton}" Content="Advanced" Height="23" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="AdvancedSetupClicked" />
+            </Grid>
+        </GroupBox>
+        
+        <!--
         <StackPanel VerticalAlignment="Top">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -50,5 +73,7 @@
         <Button Content="Cancel" Height="23" Width="100" Margin="0,0,12,12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="CancelClicked" />
         <Button Content="Save Changes" Height="23" HorizontalAlignment="Right" Margin="0,0,118,12" VerticalAlignment="Bottom" Width="100" Click="SaveSettingsClicked" />
         <Button Content="Advanced Setup" Height="23" HorizontalAlignment="Left" Margin="12,0,0,12" VerticalAlignment="Bottom" Width="100" Click="AdvancedSetupClicked" />
+        
+        -->
     </Grid>
 </UserControl>

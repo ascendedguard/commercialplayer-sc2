@@ -41,7 +41,7 @@ namespace TwitchCommercialSC2
         private bool showOverlay;
 
         /// <summary> Initializes a new instance of the <see cref="SettingsControl"/> class. </summary>
-        public SettingsControl()
+        protected SettingsControl()
         {
             this.InitializeComponent();
         }
@@ -55,12 +55,14 @@ namespace TwitchCommercialSC2
             this.replayDirectory = settings.ReplayDirectory;
             this.showOverlay = settings.ShowOverlay;
 
+            this.cbxShowOverlay.IsChecked = this.showOverlay;
+
             this.UpdateCommercialValueText();
             this.UpdateDelayValueText();
             this.UpdateMinimumGameTimeValueText();
         }
 
-        private void DelaySliderValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
+        private void DelaySliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             var index = (int)e.NewValue;
 
@@ -78,15 +80,13 @@ namespace TwitchCommercialSC2
 
             if (minutes > 0)
             {
-                time += minutes + "m ";
+                time += string.Format("{0}m ", minutes);
             }
 
-            time += seconds + "s ";
-
-            this.txtDelayDescription.Text = time + "delay until first commercials start.";
+            this.txtDelayDescription.Text = string.Format("{0}{1}s delay until first commercial.", time, seconds);
         }
 
-        private void CommercialValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
+        private void CommercialValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             var index = (int)e.NewValue;
 
@@ -98,16 +98,12 @@ namespace TwitchCommercialSC2
 
         private void UpdateCommercialValueText()
         {
-            var text = this.initialCommercialCount.ToString() + " commercial";
-
-            if (this.initialCommercialCount > 1)
-            {
-                text += "s";
-            }
-
+            var text = string.Format(
+                "{0} commercial{1}", this.initialCommercialCount, this.initialCommercialCount > 1 ? "s" : string.Empty);
+            
             if (this.gameMinutesPerExtraCount > 0)
             {
-                text += ", with 1 extra for every " + this.gameMinutesPerExtraCount + " minutes in-game.";
+                text += string.Format(", 1 extra for every {0} game minutes.", this.gameMinutesPerExtraCount);
             }
 
             this.txtCommercialDescription.Text = text;
@@ -115,7 +111,7 @@ namespace TwitchCommercialSC2
 
         public event EventHandler SettingsClose;
 
-        private void CancelClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void CancelClicked(object sender, RoutedEventArgs e)
         {
             var handler = this.SettingsClose;
             if (handler != null)
@@ -124,8 +120,10 @@ namespace TwitchCommercialSC2
             }
         }
 
-        private void SaveSettingsClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void SaveSettingsClicked(object sender, RoutedEventArgs e)
         {
+            this.showOverlay = cbxShowOverlay.IsChecked == true;
+
             // Save the settings to a file.
             var file = new SettingsFile
                 {
@@ -146,7 +144,7 @@ namespace TwitchCommercialSC2
             }
         }
 
-        private void MinimumGameTimeValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
+        private void MinimumGameTimeValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             var index = (int)e.NewValue;
 
@@ -157,7 +155,10 @@ namespace TwitchCommercialSC2
 
         private void UpdateMinimumGameTimeValueText()
         {
-            var text = "A commercial won't play for games less than " + this.minimumGameMinuteCount + " minutes long.";
+            var text = string.Format(
+                "Minimum game length: {0} minute{1}.",
+                this.minimumGameMinuteCount,
+                this.minimumGameMinuteCount > 1 ? "s" : string.Empty);
 
             this.txtMinimumGameTime.Text = text;
         }

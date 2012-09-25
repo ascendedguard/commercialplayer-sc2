@@ -35,7 +35,7 @@
   VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "Installation package for Twitch Commercial Runner"
   VIProductVersion 1.0.2.0
   
-  BrandingText "Twitch Commercial Runner v1.0.2 Installation"
+  BrandingText "Twitch Commercial Runner v2.0.0 Installation"
   
 ;--------------------------------
 ;Interface Configuration

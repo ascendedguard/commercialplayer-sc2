@@ -62,13 +62,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AuthorizeTwitchWindow.xaml.cs">
-      <DependentUpon>AuthorizeTwitchWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CommercialTimerOverlay.xaml.cs">
       <DependentUpon>CommercialTimerOverlay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoginControl.xaml.cs">
+      <DependentUpon>LoginControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginEventArgs.cs" />
+    <Compile Include="MonitorStatusEventArgs.cs" />
+    <Compile Include="OverlayRequestEventArgs.cs" />
     <Compile Include="RegistrySettings.cs" />
+    <Compile Include="ReplayMonitorControl.xaml.cs">
+      <DependentUpon>ReplayMonitorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,12 +87,19 @@
     <Compile Include="TwitchTV\NotAuthorizedException.cs" />
     <Compile Include="TwitchTV\TwitchApiV2.cs" />
     <Compile Include="TwitchTV\User.cs" />
+    <Compile Include="UpdateControl.xaml.cs">
+      <DependentUpon>UpdateControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Updates\UpdateFile.cs" />
-    <Page Include="AuthorizeTwitchWindow.xaml">
+    <Page Include="ApplicationThemeDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommercialTimerOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,7 +115,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ReplayMonitorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,6 +167,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\glyphicons_download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GenericBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Controls\EndCap.png" />
+    <Resource Include="Images\Controls\HeaderBetween.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,8 +1,0 @@
-﻿<Window x:Class="TwitchCommercialSC2.AuthorizeTwitchWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Authorize Twitch" Height="532" Width="691" Loaded="WindowLoaded" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
-    <Grid>
-        <WebBrowser x:Name="webBrowser" />
-    </Grid>
-</Window>
