@@ -69,18 +69,19 @@ namespace TwitchCommercialSC2
             this.settings.Load();
             this.settings.Save(); // This save ensures the file exists if the user wants to do advanced setup.
             
-            //this.UpdateSettingsDescription();
-
-            // Show version number
-            
-             /* var version = Assembly.GetExecutingAssembly().GetName().Version;
-            
-            this.txtVersion.Text = string.Format(
-                "Version {0}.{1}.{2}", version.Major, version.MajorRevision, version.Build);
-            */
             this.VerifyWhetherSetupIsComplete();
 
             Task.Factory.StartNew(this.CheckForUpdates);
+            this.Loaded += this.MainWindowLoaded;
+        }
+
+        private void MainWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            // Makes sure the window appears when the application is started.
+            // For whatever reason, .NET apps love to start in the background...
+            this.Show();
+            this.WindowState = WindowState.Normal;
+            this.Activate();
         }
 
         private void TogglePause()
