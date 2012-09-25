@@ -134,11 +134,6 @@
     </Compile>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />
-    <Resource Include="Fonts\DroidSans-Bold.ttf" />
-    <Resource Include="Fonts\DroidSans.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Fonts\Google Android License.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\glyphicons_cog.png" />
