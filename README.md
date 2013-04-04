@@ -4,4 +4,4 @@ The commercial runner is made to assist players and casters by setting up a cust
 
 **Downloads**
 
-[You can download the latest version here.](http://ascendtv.com/commercial-sc2)
+[You can download the latest version here.](http://willeddins.com/starcraft-commercial-player/)
