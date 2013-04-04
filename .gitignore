@@ -8,3 +8,4 @@ _Resharper.*
 *.user
 *DotSettings
 */TwitchCommercialSetup.exe
+Installer/TwitchCommercialSetup*.exe
