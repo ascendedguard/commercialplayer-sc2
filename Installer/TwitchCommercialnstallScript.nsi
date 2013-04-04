@@ -33,9 +33,9 @@
   VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "Will 'Ascend' Eddins"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright © 2012"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "Installation package for Twitch Commercial Runner"
-  VIProductVersion 2.0.0.0
+  VIProductVersion 2.0.2.0
   
-  BrandingText "Twitch Commercial Runner v2.0.0 Installation"
+  BrandingText "Twitch Commercial Runner v2.0.2 Installation"
   
 ;--------------------------------
 ;Interface Configuration
